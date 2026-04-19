@@ -1,18 +1,18 @@
 /**
- * BCI Navigator — client-side only.
- * Blink → move highlight; clench → activate tile.
- * Music actions use Spotify Web API (see src/spotify.js).
+ * Blink → next tile, clench → activate.
+ * Music → spotifyPlayback. Messages → messageAlert (same pattern).
  */
 import {
   initSpotifyAuth,
   beginSpotifyLogin,
   spotifyPlayback,
 } from './spotify.js'
+import { messageAlert } from './messages.js'
 
 const MENUS = {
   home: [
     { label: 'Music', action: 'goto:music' },
-    { label: 'Help', action: 'goto:help' },
+    { label: 'Messages', action: 'goto:messages' },
   ],
   music: [
     { label: 'Play', action: 'music:play' },
@@ -21,8 +21,11 @@ const MENUS = {
     { label: 'Previous', action: 'music:previous' },
     { label: '← Back', action: 'goto:home' },
   ],
-  help: [
-    { label: 'Coming Soon', action: 'noop' },
+  messages: [
+    { label: 'Help', action: 'message:help' },
+    { label: 'Hungry', action: 'message:hungry' },
+    { label: 'Thirsty', action: 'message:thirsty' },
+    { label: 'Sick', action: 'message:sick' },
     { label: '← Back', action: 'goto:home' },
   ],
 }
@@ -61,8 +64,11 @@ function applyAction(action) {
     }
     return
   }
-  if (action === 'noop') {
-    setFlash('Coming soon')
+  if (action.startsWith('message:')) {
+    const key = action.slice(8)
+    void messageAlert(key)
+      .then((msg) => setFlash(msg))
+      .catch((e) => setFlash(e.message || 'Message'))
     return
   }
   if (action.startsWith('music:')) {
