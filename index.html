@@ -124,6 +124,23 @@
     .btn:hover { border-color: #444; color: #666; }
     .btn.blink:hover { border-color: #3b82f6; color: #60a5fa; }
     .btn.clench:hover { border-color: #22c55e; color: #4ade80; }
+    .btn.spotify:hover { border-color: #1db954; color: #1ed760; }
+
+    #spotify-row {
+      position: fixed;
+      bottom: 68px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    #spotify-hint {
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      color: #2a2a2a;
+      max-width: 220px;
+      line-height: 1.4;
+    }
   </style>
 </head>
 <body>
@@ -135,75 +152,16 @@
 
 <div id="flash"></div>
 
+<div id="spotify-row">
+  <button type="button" class="btn spotify" onclick="connectSpotify()">Connect Spotify</button>
+  <span id="spotify-hint">Premium + Spotify open on a device. Client ID in <code style="color:#333">src/config.js</code>; production redirect = this page’s https URL in Spotify Dashboard.</span>
+</div>
+
 <div id="controls">
   <button class="btn blink" onclick="signal('blink')">B — Blink</button>
   <button class="btn clench" onclick="signal('clench')">J — Clench</button>
 </div>
 
-<script>
-  let prevState = null
-
-  function render(state) {
-    const tilesEl = document.getElementById('tiles')
-    const menuNameEl = document.getElementById('menu-name')
-    const flashEl = document.getElementById('flash')
-
-    // Menu label
-    menuNameEl.textContent = state.menu.charAt(0).toUpperCase() + state.menu.slice(1)
-
-    // Tiles — only rebuild DOM if items changed
-    const itemsKey = state.items.join('|') + ':' + state.index
-    const prevKey = prevState ? prevState.items.join('|') + ':' + prevState.index : null
-
-    if (itemsKey !== prevKey) {
-      tilesEl.innerHTML = ''
-      state.items.forEach((label, i) => {
-        const div = document.createElement('div')
-        div.className = 'tile' + (i === state.index ? ' active' : '') + (label.startsWith('←') ? ' back' : '')
-        div.textContent = label
-        div.onclick = () => signal('clench')  // clicking a tile = clench
-        tilesEl.appendChild(div)
-      })
-    } else {
-      // Just update active class
-      const tiles = tilesEl.querySelectorAll('.tile')
-      tiles.forEach((t, i) => {
-        t.classList.toggle('active', i === state.index)
-      })
-    }
-
-    // Flash message
-    if (state.flash) {
-      flashEl.textContent = state.flash
-      flashEl.classList.add('visible')
-    } else {
-      flashEl.classList.remove('visible')
-    }
-
-    prevState = state
-  }
-
-  async function signal(name) {
-    try {
-      await fetch('/signal/' + name, { method: 'POST' })
-    } catch (e) {}
-  }
-
-  async function poll() {
-    try {
-      const r = await fetch('/state')
-      if (r.ok) render(await r.json())
-    } catch (e) {}
-    setTimeout(poll, 80)
-  }
-
-  // Keyboard shortcuts for demo
-  document.addEventListener('keydown', e => {
-    if (e.key === 'b' || e.key === 'B') signal('blink')
-    if (e.key === 'j' || e.key === 'J') signal('clench')
-  })
-
-  poll()
-</script>
+<script type="module" src="./src/app.js"></script>
 </body>
 </html>

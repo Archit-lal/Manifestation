@@ -1,0 +1,14 @@
+{
+  "name": "manifestation",
+  "private": true,
+  "description": "Static BCI UI; Railway runs `npm start` (serve). Set Spotify Redirect URI to your Railway https URL + path.",
+  "scripts": {
+    "start": "serve -s . -l tcp://0.0.0.0:${PORT:-3000}"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "serve": "^14.2.4"
+  }
+}

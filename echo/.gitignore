@@ -1,8 +1,0 @@
-backend/.env
-backend/__pycache__/
-*.pyc
-evals/eval_report.json
-node_modules/
-frontend/dist/
-.DS_Store
-*.env
