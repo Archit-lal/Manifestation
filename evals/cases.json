@@ -1,0 +1,227 @@
+[
+  {
+    "id": "empty-thread-new",
+    "contact_name": "Alex",
+    "history": [],
+    "expected_intent": "new",
+    "must_include_one_of": ["hey", "hi", "hello", "what's up", "whats up", "how are", "how's", "hows"],
+    "must_avoid_terms": ["as an AI", "as an assistant", "I cannot", "I'm an AI"],
+    "judge_rubric": {"relevance": ">=4", "naturalness": ">=4", "safety": "=5"}
+  },
+  {
+    "id": "continuation-question-direct",
+    "contact_name": "Mom",
+    "history": [
+      {"text": "Are you coming for dinner tonight?", "from_me": false, "ts_offset_min": -3}
+    ],
+    "expected_intent": "continuation",
+    "must_include_one_of": ["yes", "yeah", "no", "maybe", "on my way", "definitely", "probably", "not sure", "i'll", "ill", "coming", "can't", "cannot"],
+    "must_avoid_terms": ["as an AI", "as an assistant"],
+    "judge_rubric": {"relevance": ">=4", "naturalness": ">=4", "safety": "=5"}
+  },
+  {
+    "id": "continuation-emotional-support",
+    "contact_name": "Best Friend",
+    "history": [
+      {"text": "Having a really rough day", "from_me": false, "ts_offset_min": -5},
+      {"text": "everything just feels overwhelming", "from_me": false, "ts_offset_min": -4}
+    ],
+    "expected_intent": "continuation",
+    "must_include_one_of": ["sorry", "here", "talk", "listen", "okay", "ok", "what happened", "tell me", "sending", "love", "there for"],
+    "must_avoid_terms": ["as an AI", "I understand as an"],
+    "judge_rubric": {"relevance": ">=4", "naturalness": ">=4", "safety": "=5"}
+  },
+  {
+    "id": "new-last-message-is-mine",
+    "contact_name": "Dad",
+    "history": [
+      {"text": "On my way!", "from_me": true, "ts_offset_min": -120}
+    ],
+    "expected_intent": "new",
+    "must_include_one_of": ["hey", "hi", "arrived", "here", "just", "how are", "checking", "landed"],
+    "must_avoid_terms": ["as an AI"],
+    "judge_rubric": {"relevance": ">=3", "naturalness": ">=4", "safety": "=5"}
+  },
+  {
+    "id": "continuation-short-response",
+    "contact_name": "Mom",
+    "history": [
+      {"text": "?", "from_me": false, "ts_offset_min": -2}
+    ],
+    "expected_intent": "continuation",
+    "must_include_one_of": ["sorry", "what", "just", "busy", "sec", "hold", "one sec", "in a", "phone died", "didn't see"],
+    "must_avoid_terms": ["as an AI"],
+    "judge_rubric": {"relevance": ">=3", "naturalness": ">=4", "safety": "=5"}
+  },
+  {
+    "id": "continuation-logistics",
+    "contact_name": "Dad",
+    "history": [
+      {"text": "I'll pick you up at 6pm, okay?", "from_me": false, "ts_offset_min": -10}
+    ],
+    "expected_intent": "continuation",
+    "must_include_one_of": ["yes", "yeah", "ok", "okay", "perfect", "great", "sounds good", "6pm", "see you", "sure"],
+    "must_avoid_terms": ["as an AI"],
+    "judge_rubric": {"relevance": ">=4", "naturalness": ">=4", "safety": "=5"}
+  },
+  {
+    "id": "new-old-message-stale",
+    "contact_name": "Mom",
+    "history": [
+      {"text": "Good morning!", "from_me": false, "ts_offset_min": -420}
+    ],
+    "expected_intent": "new",
+    "must_include_one_of": ["morning", "hey", "hi", "good", "afternoon", "evening", "late", "sorry", "just saw"],
+    "must_avoid_terms": ["as an AI"],
+    "judge_rubric": {"relevance": ">=3", "naturalness": ">=4", "safety": "=5"}
+  },
+  {
+    "id": "continuation-back-and-forth",
+    "contact_name": "Sister",
+    "history": [
+      {"text": "Hey, are you free this weekend?", "from_me": false, "ts_offset_min": -30},
+      {"text": "I think so, why?", "from_me": true, "ts_offset_min": -28},
+      {"text": "Want to go to the farmers market Saturday morning", "from_me": false, "ts_offset_min": -5}
+    ],
+    "expected_intent": "continuation",
+    "must_include_one_of": ["yes", "yeah", "sounds", "love", "sure", "saturday", "morning", "great", "let's", "lets"],
+    "must_avoid_terms": ["as an AI"],
+    "judge_rubric": {"relevance": ">=4", "naturalness": ">=4", "safety": "=5"}
+  },
+  {
+    "id": "continuation-concern-wellbeing",
+    "contact_name": "Mom",
+    "history": [
+      {"text": "How are you feeling today?", "from_me": false, "ts_offset_min": -8}
+    ],
+    "expected_intent": "continuation",
+    "must_include_one_of": ["feeling", "good", "better", "okay", "ok", "tired", "great", "fine", "alright", "not bad"],
+    "must_avoid_terms": ["as an AI"],
+    "judge_rubric": {"relevance": ">=4", "naturalness": ">=4", "safety": "=5"}
+  },
+  {
+    "id": "continuation-share-news",
+    "contact_name": "Dad",
+    "history": [
+      {"text": "Guess what, I got the promotion!", "from_me": false, "ts_offset_min": -2}
+    ],
+    "expected_intent": "continuation",
+    "must_include_one_of": ["congrats", "congratulations", "amazing", "awesome", "wow", "so proud", "happy", "great news", "knew"],
+    "must_avoid_terms": ["as an AI"],
+    "judge_rubric": {"relevance": ">=4", "naturalness": ">=4", "safety": "=5"}
+  },
+  {
+    "id": "continuation-request-for-help",
+    "contact_name": "Mom",
+    "history": [
+      {"text": "Can you help me with something when you get home?", "from_me": false, "ts_offset_min": -15}
+    ],
+    "expected_intent": "continuation",
+    "must_include_one_of": ["sure", "yes", "yeah", "of course", "happy to", "what", "what do", "no problem", "on my way"],
+    "must_avoid_terms": ["as an AI"],
+    "judge_rubric": {"relevance": ">=4", "naturalness": ">=4", "safety": "=5"}
+  },
+  {
+    "id": "continuation-running-late",
+    "contact_name": "Dad",
+    "history": [
+      {"text": "Where are you? We've been waiting for 20 minutes", "from_me": false, "ts_offset_min": -1}
+    ],
+    "expected_intent": "continuation",
+    "must_include_one_of": ["sorry", "on my way", "5 minutes", "almost", "traffic", "be there", "running late", "just", "leaving"],
+    "must_avoid_terms": ["as an AI"],
+    "judge_rubric": {"relevance": ">=4", "naturalness": ">=4", "safety": "=5"}
+  },
+  {
+    "id": "continuation-thank-you",
+    "contact_name": "Mom",
+    "history": [
+      {"text": "Thanks for calling yesterday, it really meant a lot", "from_me": false, "ts_offset_min": -25}
+    ],
+    "expected_intent": "continuation",
+    "must_include_one_of": ["of course", "always", "anytime", "love", "glad", "miss", "good to", "needed", "of course"],
+    "must_avoid_terms": ["as an AI"],
+    "judge_rubric": {"relevance": ">=4", "naturalness": ">=4", "safety": "=5"}
+  },
+  {
+    "id": "new-thread-casual-friend",
+    "contact_name": "Jake",
+    "history": [],
+    "expected_intent": "new",
+    "must_include_one_of": ["hey", "hi", "what's up", "whats up", "how's", "yo", "dude", "man"],
+    "must_avoid_terms": ["as an AI", "Dear", "Good morning, I hope"],
+    "judge_rubric": {"relevance": ">=3", "naturalness": ">=4", "safety": "=5"}
+  },
+  {
+    "id": "continuation-funny-reply-expected",
+    "contact_name": "Best Friend",
+    "history": [
+      {"text": "you're literally the worst", "from_me": false, "ts_offset_min": -3},
+      {"text": "jk jk love you", "from_me": false, "ts_offset_min": -3}
+    ],
+    "expected_intent": "continuation",
+    "must_include_one_of": ["love", "haha", "lol", "😂", "i know", "you too", "worst", "obviously", "takes one"],
+    "must_avoid_terms": ["as an AI", "I understand that was a joke"],
+    "judge_rubric": {"relevance": ">=3", "naturalness": ">=4", "safety": "=5"}
+  },
+  {
+    "id": "continuation-complex-multi-turn",
+    "contact_name": "Mom",
+    "history": [
+      {"text": "Did you eat today?", "from_me": false, "ts_offset_min": -60},
+      {"text": "Yes mom 😊", "from_me": true, "ts_offset_min": -58},
+      {"text": "Good! What did you have?", "from_me": false, "ts_offset_min": -55},
+      {"text": "Made eggs and toast", "from_me": true, "ts_offset_min": -53},
+      {"text": "That's my boy. Did you take your meds?", "from_me": false, "ts_offset_min": -5}
+    ],
+    "expected_intent": "continuation",
+    "must_include_one_of": ["yes", "yeah", "just did", "taking them", "oops", "forgot", "not yet", "about to"],
+    "must_avoid_terms": ["as an AI"],
+    "judge_rubric": {"relevance": ">=4", "naturalness": ">=4", "safety": "=5"}
+  },
+  {
+    "id": "new-my-last-message-no-reply",
+    "contact_name": "Alex",
+    "history": [
+      {"text": "Hey, call me when you can", "from_me": true, "ts_offset_min": -200},
+      {"text": "It's kind of urgent", "from_me": true, "ts_offset_min": -195}
+    ],
+    "expected_intent": "new",
+    "must_include_one_of": ["still", "you there", "urgent", "pick up", "call me", "missed", "trying to reach", "hey"],
+    "must_avoid_terms": ["as an AI"],
+    "judge_rubric": {"relevance": ">=3", "naturalness": ">=4", "safety": "=5"}
+  },
+  {
+    "id": "continuation-yes-no-simple",
+    "contact_name": "Dad",
+    "history": [
+      {"text": "Are you home?", "from_me": false, "ts_offset_min": -1}
+    ],
+    "expected_intent": "continuation",
+    "must_include_one_of": ["yes", "yeah", "no", "not yet", "almost", "leaving", "just got", "on my way", "be there"],
+    "must_avoid_terms": ["as an AI"],
+    "judge_rubric": {"relevance": ">=4", "naturalness": ">=4", "safety": "=5"}
+  },
+  {
+    "id": "continuation-good-night",
+    "contact_name": "Mom",
+    "history": [
+      {"text": "Good night sweetheart, sleep well 💕", "from_me": false, "ts_offset_min": -4}
+    ],
+    "expected_intent": "continuation",
+    "must_include_one_of": ["good night", "night", "love you", "sleep well", "sweet dreams", "you too", "goodnight"],
+    "must_avoid_terms": ["as an AI"],
+    "judge_rubric": {"relevance": ">=4", "naturalness": ">=4", "safety": "=5"}
+  },
+  {
+    "id": "continuation-plan-making",
+    "contact_name": "Sister",
+    "history": [
+      {"text": "What time should we meet tomorrow?", "from_me": false, "ts_offset_min": -7}
+    ],
+    "expected_intent": "continuation",
+    "must_include_one_of": ["around", "at", "noon", "morning", "afternoon", "pm", "am", "whenever", "works for me", "you decide", "how about"],
+    "must_avoid_terms": ["as an AI"],
+    "judge_rubric": {"relevance": ">=4", "naturalness": ">=4", "safety": "=5"}
+  }
+]

@@ -788,6 +788,230 @@ body {
   border-radius: 50%;
   background: #0b0b0f;
 }
+
+/* ============================================================
+   iMessage — contact list rows
+   ============================================================ */
+.contact-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-width: 560px;
+  margin: 0 auto;
+  overflow-y: auto;
+  max-height: calc(100vh - 160px);
+}
+.contact-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 16px;
+  border-radius: 14px;
+  background: var(--surface);
+  border: 1px solid transparent;
+  transition: all 0.35s cubic-bezier(0.2, 0.9, 0.3, 1);
+  cursor: default;
+}
+.contact-row.focused {
+  background: var(--surface-hi);
+  border-color: rgba(143, 227, 193, 0.45);
+  transform: translateX(6px);
+  box-shadow:
+    0 12px 40px -16px rgba(0, 0, 0, 0.5),
+    0 0 40px -8px rgba(143, 227, 193, 0.12);
+  animation: listBreathe 2.8s ease-in-out infinite;
+}
+.contact-row.back-row {
+  opacity: 0.55;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-dim);
+}
+.contact-row.back-row.focused {
+  opacity: 1;
+}
+.contact-avatar {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, rgba(143, 227, 193, 0.6), rgba(106, 183, 255, 0.6));
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+.contact-info { flex: 1; min-width: 0; }
+.contact-name {
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.contact-preview {
+  font-size: 12px;
+  color: var(--text-faint);
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.contact-ts {
+  font-size: 11px;
+  color: var(--text-faint);
+  flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ============================================================
+   iMessage — thread view
+   ============================================================ */
+.thread-wrap {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 120px);
+  max-width: 640px;
+  margin: 0 auto;
+  width: 100%;
+}
+.thread-header {
+  text-align: center;
+  padding: 0 0 12px;
+  flex-shrink: 0;
+}
+.thread-contact-name {
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.thread-caption {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-top: 3px;
+}
+.thread-messages {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px 4px;
+  scrollbar-width: none;
+}
+.thread-messages::-webkit-scrollbar { display: none; }
+
+.bubble-row {
+  display: flex;
+  align-items: flex-end;
+}
+.bubble-row.incoming { justify-content: flex-start; }
+.bubble-row.outgoing { justify-content: flex-end; }
+
+.bubble {
+  max-width: 70%;
+  padding: 10px 14px;
+  border-radius: 18px;
+  font-size: 15px;
+  line-height: 1.45;
+  word-break: break-word;
+}
+.bubble.incoming {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--stroke);
+  color: var(--text);
+  border-bottom-left-radius: 5px;
+}
+.bubble.outgoing {
+  background: linear-gradient(145deg, #3478f6, #1a66d2);
+  color: #fff;
+  border-bottom-right-radius: 5px;
+  box-shadow: 0 4px 16px -6px rgba(52, 120, 246, 0.6);
+}
+.bubble.optimistic {
+  opacity: 0.7;
+}
+
+/* Suggestion pill bar */
+.pill-area {
+  flex-shrink: 0;
+  padding: 12px 0 4px;
+  border-top: 1px solid var(--stroke);
+}
+.intent-badge {
+  text-align: center;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: 8px;
+}
+.pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+.pill {
+  padding: 9px 18px;
+  border-radius: 999px;
+  background: var(--surface);
+  border: 1px solid var(--stroke);
+  backdrop-filter: blur(14px);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  transition: all 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
+  cursor: default;
+  white-space: nowrap;
+}
+.pill.focused {
+  background: rgba(143, 227, 193, 0.12);
+  border-color: rgba(143, 227, 193, 0.55);
+  color: var(--text);
+  box-shadow:
+    0 0 24px -6px rgba(143, 227, 193, 0.35),
+    0 0 0 1px rgba(143, 227, 193, 0.2);
+  transform: translateY(-2px);
+  animation: pillBreathe 2.4s ease-in-out infinite;
+}
+.pill.back-pill {
+  color: var(--text-faint);
+  font-size: 13px;
+}
+.pill.back-pill.focused {
+  color: var(--text);
+}
+@keyframes pillBreathe {
+  0%, 100% { transform: translateY(-2px); }
+  50%       { transform: translateY(-4px); }
+}
+.pill-loading {
+  text-align: center;
+  padding: 12px;
+  color: var(--text-faint);
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.pill-spinner {
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.08);
+  border-top-color: rgba(143, 227, 193, 0.7);
+  animation: spin 0.9s linear infinite;
+}
 </style>
 </head>
 <body>
@@ -817,8 +1041,8 @@ body {
   <div class="main" id="main"></div>
 
   <div class="footer">
-    <span class="footer-item"><kbd>Blink</kbd>Cycle</span>
-    <span class="footer-item"><kbd>Clench</kbd>Select</span>
+    <span class="footer-item"><kbd>Blink</kbd><kbd>B</kbd>Cycle</span>
+    <span class="footer-item"><kbd>Clench</kbd><kbd>J</kbd>Select</span>
   </div>
 </div>
 
@@ -828,6 +1052,7 @@ body {
 // ============================================================
 const BCI_WS = "ws://localhost:8765";
 const AGENT_URL = "http://localhost:8766";
+const MESSAGING_URL = "http://localhost:8767"; // messaging-only agent
 
 // ============================================================
 // Flash on input
@@ -854,24 +1079,25 @@ function connectBCI() {
   };
   bciSocket.onmessage = (evt) => {
     const data = JSON.parse(evt.data);
-    if (data.event === "blink") { flashInput(); onBlink(); }
-    else if (data.event === "clench") { flashInput(); onClench(); }
+    if (data.event === "blink") { flashInput(); window.onBlink(); }
+    else if (data.event === "clench") { flashInput(); window.onClench(); }
   };
 }
 connectBCI();
 
 // Keyboard fallback for debugging
 document.addEventListener("keydown", (e) => {
-  if (e.key === "b" || e.key === "B") { flashInput(); onBlink(); }
-  if (e.key === "c" || e.key === "C") { flashInput(); onClench(); }
+  if (e.key === "b" || e.key === "B") { flashInput(); window.onBlink(); }
+  if (e.key === "j" || e.key === "J") { flashInput(); window.onClench(); }
 });
 
 // ============================================================
 // Agent health check
 // ============================================================
-fetch(AGENT_URL + "/spotify/status")
-  .then(r => r.json())
-  .then(() => document.getElementById("agentDot").classList.add("connected"))
+Promise.any([
+  fetch(AGENT_URL + "/spotify/status").then(r => { if (!r.ok) throw new Error(); }),
+  fetch(MESSAGING_URL + "/contacts").then(r => { if (!r.ok) throw new Error(); }),
+]).then(() => document.getElementById("agentDot").classList.add("connected"))
   .catch(() => {});
 
 // ============================================================
@@ -883,19 +1109,24 @@ const state = {
   data: {},
 };
 
-function onBlink() {
+function _doBlink() {
   const items = currentItems();
   if (!items || items.length === 0) return;
   state.focusIndex = (state.focusIndex + 1) % items.length;
   render();
 }
 
-function onClench() {
+function _doClench() {
   const items = currentItems();
   if (!items || items.length === 0) return;
   const selected = items[state.focusIndex];
   if (selected && selected.onSelect) selected.onSelect();
 }
+
+// window.onBlink / window.onClench are the dispatch points for keyboard + BCI websocket.
+// Initialized here; snake section replaces them and chains back to these.
+window.onBlink  = _doBlink;
+window.onClench = _doClench;
 
 function currentItems() {
   return screenItems[state.screen] ? screenItems[state.screen]() : [];
@@ -915,39 +1146,35 @@ const screenItems = {
   home: () => [
     { kind: "help",  onSelect: () => triggerEmergency() },
     { kind: "ent",   onSelect: () => go("ent") },
-    { kind: "comm",  onSelect: () => go("comm") },
+    { kind: "comm",  onSelect: () => loadMessages() },
   ],
   ent: () => [
     { label: "Spotify", onSelect: () => go("spotify") },
     { label: "Snake",   onSelect: () => go("snake") },
     { label: "Back",    onSelect: () => go("home") },
   ],
-  comm: () => [
-    { label: "Contacts", onSelect: () => loadContacts() },
-    { label: "Back",     onSelect: () => go("home") },
-  ],
-  contacts: () => {
-    const items = (state.data.contacts || []).map(c => ({
+  messages: () => {
+    if (!state.data.contactList) return [];
+    const items = state.data.contactList.map(c => ({
       label: c.name,
-      sub: c.phone,
-      onSelect: () => suggestMessages(c),
+      sub: c.last_message,
+      contact: c,
+      onSelect: () => openThread(c),
     }));
-    items.push({ label: "Back", onSelect: () => go("comm") });
+    items.push({ label: "← Back", isBack: true, onSelect: () => go("home") });
     return items;
   },
-  compose: () => {
-    const items = (state.data.suggestedMessages || []).map(m => ({
-      label: m,
-      onSelect: () => go("confirm", { selectedMessage: m }),
+  thread: () => {
+    if (state.data.suggestLoading || !state.data.suggestions) {
+      return [{ label: "← Back", isBack: true, onSelect: () => go("messages") }];
+    }
+    const items = state.data.suggestions.map(s => ({
+      label: s,
+      onSelect: () => sendSuggestedMessage(s),
     }));
-    items.push({ label: "Regenerate", onSelect: () => suggestMessages(state.data.selectedContact) });
-    items.push({ label: "Cancel", onSelect: () => go("contacts") });
+    items.push({ label: "← Back", isBack: true, onSelect: () => go("messages") });
     return items;
   },
-  confirm: () => [
-    { label: "Send", onSelect: () => sendMessage() },
-    { label: "Cancel", onSelect: () => go("compose") },
-  ],
   emergency: () => [
     { label: "Back to home", onSelect: () => go("home") },
   ],
@@ -976,10 +1203,8 @@ const main = document.getElementById("main");
 function render() {
   if (state.screen === "home")        return renderHome();
   if (state.screen === "ent")         return renderList("Entertainment");
-  if (state.screen === "comm")        return renderList("Communication");
-  if (state.screen === "contacts")    return renderList("Contacts");
-  if (state.screen === "compose")     return renderCompose();
-  if (state.screen === "confirm")     return renderConfirm();
+  if (state.screen === "messages")    return renderMessages();
+  if (state.screen === "thread")      return renderThread();
   if (state.screen === "emergency")   return renderEmergency();
   if (state.screen === "spotify")     return renderSpotify();
   if (state.screen === "snake")       return renderSnake();
@@ -1052,38 +1277,108 @@ function renderList(title) {
     </div>`;
 }
 
-function renderCompose() {
-  if (!state.data.suggestedMessages) {
+function _relativeTime(ts) {
+  const diff = Date.now() / 1000 - ts;
+  if (diff < 60) return "now";
+  if (diff < 3600) return `${Math.floor(diff / 60)}m`;
+  if (diff < 86400) return `${Math.floor(diff / 3600)}h`;
+  const d = new Date(ts * 1000);
+  const today = new Date();
+  if (d.toDateString() === today.toDateString()) return "Today";
+  const yesterday = new Date(today); yesterday.setDate(today.getDate() - 1);
+  if (d.toDateString() === yesterday.toDateString()) return "Yesterday";
+  return d.toLocaleDateString(undefined, { month: "short", day: "numeric" });
+}
+
+function _avatarInitials(name) {
+  const parts = name.trim().split(/\s+/);
+  if (parts.length >= 2) return (parts[0][0] + parts[1][0]).toUpperCase();
+  return name.slice(0, 2).toUpperCase();
+}
+
+function renderMessages() {
+  if (!state.data.contactList) {
     main.innerHTML = `
       <div class="screen">
         <div class="loading">
           <div class="loading-spinner"></div>
-          Generating messages
+          Loading messages
         </div>
       </div>`;
     return;
   }
-  renderList("Compose Message");
-}
-
-function renderConfirm() {
   const items = currentItems();
   main.innerHTML = `
     <div class="screen">
-      <div class="screen-title">Confirm Send</div>
-      <div class="message-preview">${state.data.selectedMessage}</div>
-      <div class="message-to">To &middot; ${state.data.selectedContact?.name || ""}</div>
-      <div class="list">
-        ${items.map((it, i) => `
-          <div class="list-item ${i === state.focusIndex ? "focused" : ""}">
-            <div class="list-item-text">
-              <div class="list-item-label">${it.label}</div>
-            </div>
-            <div class="list-item-indicator"></div>
-          </div>
-        `).join("")}
+      <div class="screen-title">Messages</div>
+      <div class="contact-list">
+        ${items.map((it, i) => {
+          if (it.isBack) {
+            return `<div class="contact-row back-row ${i === state.focusIndex ? "focused" : ""}">← Back</div>`;
+          }
+          const c = it.contact;
+          return `
+            <div class="contact-row ${i === state.focusIndex ? "focused" : ""}">
+              <div class="contact-avatar">${_avatarInitials(c.name)}</div>
+              <div class="contact-info">
+                <div class="contact-name">${_esc(c.name)}</div>
+                <div class="contact-preview">${_esc(c.last_message || "")}</div>
+              </div>
+              <div class="contact-ts">${c.last_ts ? _relativeTime(c.last_ts) : ""}</div>
+            </div>`;
+        }).join("")}
       </div>
     </div>`;
+}
+
+function renderThread() {
+  const contact = state.data.currentContact;
+  if (!contact) { go("messages"); return; }
+
+  const msgs = state.data.threadMessages || [];
+  const suggestions = state.data.suggestions;
+  const loading = state.data.suggestLoading;
+  const intent = state.data.suggestionIntent || "";
+  const items = currentItems();
+
+  const bubblesHTML = msgs.length === 0
+    ? `<div style="text-align:center;color:var(--text-faint);font-size:13px;padding:40px 0">No messages yet</div>`
+    : msgs.map(m => `
+        <div class="bubble-row ${m.from_me ? "outgoing" : "incoming"}">
+          <div class="bubble ${m.from_me ? "outgoing" : "incoming"} ${m.optimistic ? "optimistic" : ""}">${_esc(m.text)}</div>
+        </div>`).join("");
+
+  let pillContent;
+  if (loading || !suggestions) {
+    pillContent = `<div class="pill-loading"><div class="pill-spinner"></div>Generating replies…</div>`;
+  } else {
+    const pillsHTML = items.map((it, i) => {
+      const isBack = it.isBack;
+      return `<div class="pill ${isBack ? "back-pill" : ""} ${i === state.focusIndex ? "focused" : ""}">${_esc(it.label)}</div>`;
+    }).join("");
+    pillContent = `<div class="pill-row">${pillsHTML}</div>`;
+  }
+
+  main.innerHTML = `
+    <div class="screen" style="padding:0">
+      <div class="thread-wrap">
+        <div class="thread-header">
+          <div class="thread-contact-name">${_esc(contact.name)}</div>
+          <div class="thread-caption">Blink to cycle replies &bull; Clench to send</div>
+        </div>
+        <div class="thread-messages" id="threadMsgs">${bubblesHTML}</div>
+        <div class="pill-area">
+          ${intent ? `<div class="intent-badge">${intent}</div>` : ""}
+          ${pillContent}
+        </div>
+      </div>
+    </div>`;
+
+  // Auto-scroll to bottom
+  requestAnimationFrame(() => {
+    const el = document.getElementById("threadMsgs");
+    if (el) el.scrollTop = el.scrollHeight;
+  });
 }
 
 function renderEmergency() {
@@ -1232,16 +1527,16 @@ function drawSnake() {
     </div>`;
 }
 
-// Override input for snake
-const origBlink = onBlink;
-const origClench = onClench;
+// Snake overrides window.onBlink/window.onClench; captures the previous handlers first.
+const _snakeOrigBlink  = window.onBlink;
+const _snakeOrigClench = window.onClench;
 let lastClenchT = 0;
 window.onBlink = function() {
   if (state.screen === "snake") {
     if (snakeState.dead) { initSnake(); return; }
     snakeState.dir = { x: snakeState.dir.y, y: -snakeState.dir.x };
   } else {
-    origBlink();
+    _snakeOrigBlink();
   }
 };
 window.onClench = function() {
@@ -1255,11 +1550,20 @@ window.onClench = function() {
     if (snakeState.dead) { initSnake(); return; }
     snakeState.dir = { x: -snakeState.dir.y, y: snakeState.dir.x };
   } else {
-    origClench();
+    _snakeOrigClench();
   }
 };
-function onBlink() { window.onBlink(); }
-function onClench() { window.onClench(); }
+
+// ============================================================
+// Utilities
+// ============================================================
+function _esc(str) {
+  return String(str || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
 
 // ============================================================
 // Agent calls
@@ -1281,47 +1585,96 @@ async function triggerEmergency() {
   }
 }
 
-async function loadContacts() {
-  go("contacts", { contacts: null });
-  main.innerHTML = `<div class="screen"><div class="loading"><div class="loading-spinner"></div>Loading contacts</div></div>`;
+async function loadMessages() {
+  go("messages", { contactList: null });
+  render(); // shows spinner immediately
   try {
-    const r = await fetch(AGENT_URL + "/contacts");
+    const r = await fetch(MESSAGING_URL + "/contacts");
+    if (!r.ok) throw new Error(`${r.status}`);
     const data = await r.json();
-    state.data.contacts = data.contacts || [];
-    render();
+    state.data.contactList = data.contacts || [];
   } catch (e) {
-    state.data.contacts = [];
-    render();
+    // Fallback mock so UI isn't broken when backend isn't running
+    state.data.contactList = [
+      { id: "mock-mom",  name: "Mom",  handle: "+15550001111", last_message: "Are you coming for dinner?", last_ts: Date.now()/1000 - 300, chat_id: 1 },
+      { id: "mock-dad",  name: "Dad",  handle: "+15550002222", last_message: "Call me when you can", last_ts: Date.now()/1000 - 3600, chat_id: 2 },
+      { id: "mock-alex", name: "Alex", handle: "+15550003333", last_message: "Sounds good!", last_ts: Date.now()/1000 - 86400, chat_id: 3 },
+    ];
   }
+  render();
 }
 
-async function suggestMessages(contact) {
-  go("compose", { selectedContact: contact, suggestedMessages: null });
-  try {
-    const r = await fetch(AGENT_URL + "/suggest-messages", {
-      method: "POST", headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({ contact: contact.name, context: "" }),
-    });
-    const data = await r.json();
-    state.data.suggestedMessages = data.messages || [];
-    render();
-  } catch (e) {
-    state.data.suggestedMessages = ["Hi", "Thinking of you", "Call me when you can", "Love you"];
-    render();
-  }
+async function openThread(contact) {
+  go("thread", {
+    currentContact: contact,
+    threadMessages: null,
+    suggestions: null,
+    suggestLoading: true,
+    suggestionIntent: "",
+  });
+  render();
+
+  // Load thread messages and suggestions in parallel
+  const [threadResult] = await Promise.allSettled([
+    fetchThread(contact),
+    fetchSuggestions(contact),
+  ]);
 }
 
-async function sendMessage() {
-  const contact = state.data.selectedContact;
-  const message = state.data.selectedMessage;
-  main.innerHTML = `<div class="screen"><div class="loading"><div class="loading-spinner"></div>Sending</div></div>`;
+async function fetchThread(contact) {
   try {
-    await fetch(AGENT_URL + "/send-message", {
-      method: "POST", headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({ phone: contact.phone, message }),
+    const r = await fetch(`${MESSAGING_URL}/thread?contact_id=${encodeURIComponent(contact.id)}&limit=40`);
+    if (!r.ok) throw new Error(`${r.status}`);
+    const data = await r.json();
+    state.data.threadMessages = data.messages || [];
+  } catch (e) {
+    state.data.threadMessages = [];
+  }
+  if (state.screen === "thread") render();
+}
+
+async function fetchSuggestions(contact) {
+  state.data.suggestLoading = true;
+  if (state.screen === "thread") render();
+  try {
+    const r = await fetch(MESSAGING_URL + "/suggest-messages", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ contact_id: contact.id }),
     });
-  } catch (e) { /* ignore */ }
-  setTimeout(() => go("home"), 1200);
+    if (!r.ok) throw new Error(`${r.status}`);
+    const data = await r.json();
+    state.data.suggestions = data.replies || [];
+    state.data.suggestionIntent = data.intent || "";
+  } catch (e) {
+    state.data.suggestions = ["Hi", "Thinking of you", "Call me when you can", "Love you"];
+    state.data.suggestionIntent = "";
+  }
+  state.data.suggestLoading = false;
+  state.focusIndex = 0;
+  if (state.screen === "thread") render();
+}
+
+async function sendSuggestedMessage(message) {
+  const contact = state.data.currentContact;
+  if (!contact || !message) return;
+
+  // Optimistic update — append bubble immediately
+  const optimisticMsg = { id: Date.now(), text: message, from_me: true, ts: Date.now()/1000, optimistic: true };
+  state.data.threadMessages = [...(state.data.threadMessages || []), optimisticMsg];
+  state.data.suggestions = null;
+  state.data.suggestLoading = true;
+  state.focusIndex = 0;
+  render();
+
+  try {
+    await fetch(MESSAGING_URL + "/send-message", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ contact_id: contact.id, message }),
+    });
+  } catch (e) { /* show sent anyway — optimistic */ }
+
+  // Fetch fresh suggestions for the next reply round
+  await fetchSuggestions(contact);
 }
 
 async function connectSpotify() {
@@ -1374,6 +1727,7 @@ window.go = async function(screen, data) {
 
 // Initial render
 render();
+
 </script>
 </body>
 </html>
